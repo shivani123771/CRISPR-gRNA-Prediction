@@ -32,7 +32,7 @@ def one_hot_encode(seq):
                'T': [0, 0, 0, 1]}
     return np.array([mapping.get(base, [0, 0, 0, 0]) for base in seq])
 
-# -- Preprocess all sheets and fit encoder globally
+# Preprocess all sheets and fit encoder globally
 def preprocess_all_dfs(excel_path, sheet_names):
     dfs = [pd.read_excel(excel_path, sheet_name=sheet) for sheet in sheet_names]
 
@@ -57,7 +57,7 @@ def preprocess_all_dfs(excel_path, sheet_names):
 
     return processed_data, chrom_encoder
 
-# -- Build the model (same architecture)
+# Build the model (same architecture)
 def build_model(input_seq_shape, input_meta_shape):
     input_seq = Input(shape=input_seq_shape, name='sequence_input')
     input_meta = Input(shape=input_meta_shape, name='meta_input')
@@ -98,7 +98,7 @@ def build_model(input_seq_shape, input_meta_shape):
     )
     return model
 
-# -- Main loop: leave-one-cell-line-out training/testing
+# Main loop: leave-one-cell-line-out training/testing
 def main():
     excel_path = "/content/13059_2018_1459_MOESM5_ESM.xlsx"
     sheet_names = ["hela", "hct116", "hl60", "hek293t"]
@@ -144,7 +144,7 @@ def main():
             verbose=2
         )
 
-        # === Validation set performance
+        # Validation set performance
         y_val_probs = model.predict([X_seq_val, X_meta_val]).flatten()
         y_val_pred = (y_val_probs >= 0.5).astype(int)
 
